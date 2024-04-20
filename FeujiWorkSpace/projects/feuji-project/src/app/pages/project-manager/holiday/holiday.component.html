@@ -1,0 +1,31 @@
+<div class="container-fluid ">
+   
+    <h1 class="text-center p-3 mb-3 holidaycalendor">Holiday Calendar of 2024</h1>
+    <div>
+        <button type="button" class="btn btn add"  routerLink="/addholidaycalendar">
+            <i class="fas fa-plus-circle" >Add</i>
+          </button>
+    </div>
+    <table  class="tablebox table-borderless " style="border-collapse: collapse; color: white;">
+        
+        <tr class="rows bg-dark" style="color: white" >
+        <th class="border-2 solid dark text-center "><span class="text"  style="color: white" >Date</span></th>
+        <th  class="border-2 solid dark text-center"><span class="text"  style="color: white">Holiday Name</span></th>
+        <th  class="border-2 solid dark text-center"><span class="text"  style="color: white">Week Of The Day</span></th>
+        <th  class="border-2 solid dark text-center"><span class="text"  style="color: white">Action</span></th>
+    </tr>
+    <tr class="rows" *ngFor="let holiday of holidays">
+        <td  class="border-2"><span class="text">{{holiday.holidayDate |date:'dd-MMM-yyyy'}}</span></td>
+        <td  class="border-2"><span class="text">{{holiday.holidayName}}</span></td>
+        <td  class="border-2"><span class="text">{{holiday.holidayDay}}</span></td>
+        <td class="border-2"><button class="btn"><span class="text">Edit</span></button>
+            <button class="btn"><span class="text">Delete</span></button></td>
+    </tr>
+     
+       
+
+</table>
+
+<router-outlet></router-outlet>
+</div>
+

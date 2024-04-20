@@ -1,0 +1,53 @@
+.container-fluid{
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0;
+    width:50%;
+    margin-top: 70px;
+}
+ .tablebox{
+    border: 2px solid black;
+    border-radius: 10px;
+    
+    padding: 10px;
+    width: 850px;
+    /* background-image: url("../../assets/./images/final-image-6.jpg"); */
+ 
+ } 
+ 
+  
+   
+
+ .rows{
+    border-radius: 5px;
+  
+    padding: 200px;
+    /* width: 00px; */
+    height: 45px;
+   
+ } 
+ 
+ .holidaycalendor{
+    color:black;
+   
+ }
+ .text{
+    font-size: 20px;
+    font-weight: 500px;
+    text-align: center;
+    color:rgb(9, 9, 9);
+ }
+
+   .btn{
+    border-radius: 5px;
+  
+    height: 35px;
+    margin-left: 10px;
+   }
+   .add{
+    margin-left: 720px; 
+   background-color:black;
+   color: white;
+   
+   }
+ 
