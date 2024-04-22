@@ -26,8 +26,8 @@ public interface TimesheetWeekSummaryService {
 
 	List<TimeSheeApprovalDto> getTimeSheetApproval(Integer projectManagerId, Integer year, Integer accountId);
 
-	List<TimeSheeApprovalDto> getTimeSheetApprovalByEmployeeId(Integer projectManagerId, String month, Integer year,
-			Integer accountId, Integer employeeId);
-	
-	List<TimesheetApprovalSecondDto> getAllTimesheets();
+	List<TimesheetApprovalSecondDto> getTimeSheetApprovalByEmployeeId(Integer projectManagerId, String month,
+			Integer year, Integer accountId, Integer employeeId);
+
+	List<TimesheetApprovalSecondDto> getAllTimesheetsByApprovedBy(Integer approvedBy);
 }

@@ -32,13 +32,11 @@
           <div *ngIf="employeeCodeControl.errors">Employee Code is required.</div>
         </div>
       </div>
-      <!-- UNIQUE EMPLOYEE EMAIL -->
       <div class="col-md-4 mb-3">
         <label for="email" class="form-label">Employee Email<span style=color:red>*</span></label>
         <input type="text" class="form-control" id="email" placeholder="Enter employee Email" [(ngModel)]="emp.email"
           name="email" required (click)="checkEmailUnique(emp.email)">
       </div>
-      <!-- GENDER -->
       <div class="col-md-4 mb-3">
         <label for="gender" class="form-label">Gender<span style=color:red>*</span></label>
         <select class="form-select" id="gender" [(ngModel)]="emp.gender" name="gender">
@@ -51,7 +49,6 @@
         <input type="date" class="form-control" id="dataOfJoining" [(ngModel)]="emp.dateOfJoining" name="dateOfJoining">
       </div>
 
-      <!-- EMPLOYEEMENT TYPE -->
       <div class="col-md-4 mb-3">
         <label for="employmentType" class="form-label">Employment Type<span style=color:red>*</span></label>
         <select class="form-select" id="employmentType" [(ngModel)]="emp.employmentType" name="employmentType">
@@ -59,13 +56,13 @@
           <option *ngFor="let empType of employmentTypes" [ngValue]="empType.referenceDetailId">{{ empType.referenceDetailValue }}</option>
         </select>
       </div>
-      <!-- DESIGNATION -->
+      
       <div class="col-md-4 mb-3">
         <label for="designation" class="form-label">Designation<span style=color:red>*</span></label>
         <input type="text" class="form-control" id="designation" placeholder="Enter designation"
                [(ngModel)]="emp.designation" name="designation" required>
       </div>
-	  <!-- REPORTING MANAGER -->
+	
       <div class="col-md-4 mb-3">
         <label for="reportingManager" class="form-label">Reporting Manager<span style="color:red">*</span></label>
         <select class="form-select" id="reportingManager" [(ngModel)]="emp.reportingManagerId" name="reportingManagerId">
@@ -76,7 +73,7 @@
       </div>
 
 
-      <!-- BUSINESS UNIT -->
+      
       <div class="col-md-4 mb-3">
         <label for="businessUnitId" class="form-label">Business Unit<span style=color:red>*</span></label>
         <select class="form-select" id="businessUnitId" [(ngModel)]="emp.businessUnitId" name="businessUnitId">
@@ -84,7 +81,7 @@
           <option *ngFor="let BU of businessUnitType" [ngValue]="BU.referenceDetailId">{{ BU.referenceDetailValue}}</option>
         </select>
       </div>
-      <!-- DELIVERY UNIT -->
+      
       <div class="col-md-4 mb-3">
         <label for="deliveryUnitId" class="form-label">Delivery Unit<span style=color:red>*</span></label>
         <select class="form-select" id="deliveryUnitId" [(ngModel)]="emp.deliveryUnitId" name="deliveryUnitId">
@@ -101,7 +98,7 @@
       </div>
 
 
-      <!-- EXIT DATE -->
+      
 
       <div class="col-md-4 mb-3">
         <label for="exitDate" class="form-label">Exit Date:</label>

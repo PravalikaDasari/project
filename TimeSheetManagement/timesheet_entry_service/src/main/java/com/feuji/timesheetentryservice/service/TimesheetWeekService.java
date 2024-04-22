@@ -10,6 +10,7 @@ import com.feuji.timesheetentryservice.dto.ProjectTaskDto;
 import com.feuji.timesheetentryservice.dto.ProjectTaskTypeNameDto;
 import com.feuji.timesheetentryservice.dto.TimeSheeApprovalDto;
 import com.feuji.timesheetentryservice.dto.TimeSheetHistoryDto;
+import com.feuji.timesheetentryservice.dto.TimesheetApprovalSecondDto;
 import com.feuji.timesheetentryservice.entity.TimesheetWeekEntity;
 
 public interface TimesheetWeekService {
@@ -38,6 +39,8 @@ public interface TimesheetWeekService {
 	String updateTimesheetStatus(Integer employeeId,Integer accountId,String weekStartDate);
 
 	public String rejectedTimesheet(Integer employeeId, Integer accountId, String weekStartDate);
-	public List<TimeSheeApprovalDto> timeSheetHistoryDto(String month ,int year,Integer accountId);
+	//public List<TimeSheeApprovalDto> timeSheetHistoryDto(String month ,int year,Integer accountId);
+//	public List<TimeSheetHistoryDto> timeSheetHistoryDto1(String month, int year, String accountName, int employeeId);
+	public List<TimesheetApprovalSecondDto> timeSheetHistoryDto(String month, int year, Integer accountId);
 
 }

@@ -26,14 +26,16 @@ export class ManagerLayoutComponent {
       { link: '/manager/DailyStatusComponent' },
 
     ] },
+    {
+      mainOption: 'Holiday', icon: 'fas fa-gifts', subOptions: [
+        { label: 'All Holiday List', link: '/manager/holiday-list' },
+      ]
+    },
     { mainOption: 'Skills', icon: 'bi bi-journal-text',subOptions: [
       { label: 'Skill Gap', link: '/manager/skill-gap' },
       { label: 'Training Recommendations', link: '/manager/training-recommendation' }
     ] },
-    // { mainOption: 'Reports',icon: 'bi bi-bar-chart', subOptions: [
-    //   { label: 'New Report', link: '/manager/sub2.1' },
-    //   { label: 'Report History', link: '/manager/sub2.2' },
-    // ] },
+    
   ];
 
 

@@ -28,6 +28,7 @@ import com.feuji.timesheetentryservice.dto.ProjectTaskDto;
 import com.feuji.timesheetentryservice.dto.ProjectTaskTypeNameDto;
 import com.feuji.timesheetentryservice.dto.TimeSheeApprovalDto;
 import com.feuji.timesheetentryservice.dto.TimeSheetHistoryDto;
+import com.feuji.timesheetentryservice.dto.TimesheetApprovalSecondDto;
 import com.feuji.timesheetentryservice.entity.TimesheetWeekEntity;
 import com.feuji.timesheetentryservice.exception.WeekNotFoundException;
 import com.feuji.timesheetentryservice.repository.TimesheetWeekRepo;
@@ -261,26 +262,19 @@ public class TimesheetWeekServiceImpl implements TimesheetWeekService {
 //	}
 	
 	@Override
-	public List<TimeSheeApprovalDto> timeSheetHistoryDto(String month, int year, Integer accountId) {
+	public List<TimesheetApprovalSecondDto> timeSheetHistoryDto(String month, int year, Integer accountId) {
 
-	    try {
-	        List<TimeSheeApprovalDto> timeSheeApproval = timesheetWeekRepo.getTimeSheetHistory(month, year, accountId);
-	        List<TimeSheeApprovalDto> submittedAndApproved = new ArrayList<>();
-//	        ||"Rejected".equals(approvalDto.getTimesheetStatus())
-	        for (TimeSheeApprovalDto approvalDto : timeSheeApproval) {
-	        	 if ("Submitted".equals(approvalDto.getTimesheetStatus()) || "Approved".equals(approvalDto.getTimesheetStatus())||"Rejected".equals(approvalDto.getTimesheetStatus())) 
-	         {
-	                submittedAndApproved.add(approvalDto);
-	            }
-	        }
+		try {
 
-	        log.info("timeSheetHistory: ", submittedAndApproved);
-	        return submittedAndApproved;
-	    } catch (Exception e) {
-	        log.info(e.getMessage());
-	    }
-	    return null;
+			List<TimesheetApprovalSecondDto> timeSheeApproval = timesheetWeekRepo.getTimeSheetHistoryForManager(month, year, accountId);
+
+			log.info("timeSheetHistory :", timeSheeApproval);
+			return timeSheeApproval;
+		} catch (Exception e) {
+
+			log.info(e.getMessage());
+		}
+		return null;
 	}
-
 	
 }

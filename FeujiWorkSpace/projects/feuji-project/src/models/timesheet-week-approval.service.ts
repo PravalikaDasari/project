@@ -14,8 +14,8 @@ export class TimesheetWeekApprovalService {
   private weekTimeSheet: timesheetWeekApproval[] = [];
   constructor(private http: HttpClient) { }
 
-  getAccounts(): Observable<any[]> {
-    const url = `${this.accurl}?userEmpId=${106}`;
+  getAccounts(empId: number): Observable<any[]> {
+    const url = `${this.accurl}?userEmpId=${empId}`;
     return this.http.get<any[]>(url);
   }
 
@@ -50,8 +50,9 @@ export class TimesheetWeekApprovalService {
   }
 
 // --------------------------------------------------
-  getAllTimesheets(): Observable<timesheetWeekApproval[]> {
-    return this.http.get<timesheetWeekApproval[]>(`${this.apiUrl}/all`);
+getAllTimesheets(approvedBy: number): Observable<timesheetWeekApproval[]> {
+  const url = `${this.apiUrl}/all?approvedBy=${approvedBy}`;
+  return this.http.get<timesheetWeekApproval[]>(url);
 }
 
 getAccount(approvedBy: Number): Observable<timesheetWeekApproval[]> {

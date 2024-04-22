@@ -73,10 +73,8 @@ export class AddEmployeeComponent implements OnInit{
 
   checkForUniqueEmployeeCode(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
-      const value = control.value; // Get the value of the control
-      // Implement your logic to check for uniqueness here
-      const isNotUnique = false; // Replace this with your actual logic
-      // If the employee code is not unique, return an error object
+      const value = control.value; 
+      const isNotUnique = false;
       return isNotUnique ? { notUnique: true } : null;
     };
   }
@@ -130,11 +128,8 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   onSubmit() {
-    // Retrieve the selected reporting manager ID directly from the select element
     const selectedReportingManagerId = (document.getElementById('reportingManager') as HTMLSelectElement).value;
-    // Use the selectedReportingManagerId as needed, such as sending it to the server
     console.log("Selected Reporting Manager ID: ", selectedReportingManagerId);
-    // Other submission logic...
   }
 
   getAllReferenceType(){
@@ -179,12 +174,10 @@ export class AddEmployeeComponent implements OnInit{
       })
     }
 
-    // checkEmailUnique(e:any){
-    //   console.log(e);
-    // }
+    
 
     checkEmailUnique(email: string): void {
-      if (email) { // Check if email is entered
+      if (email) { 
         this.empService.checkEmployeeEmail(email).subscribe(
           response => {
             if (typeof response === 'boolean') {
@@ -193,7 +186,6 @@ export class AddEmployeeComponent implements OnInit{
   
               } else {
                 Swal.fire('Warning', 'Email already exists', 'warning');
-                // Optionally, you can handle the case when email is unique here
               }
             } else {
               console.error('Invalid response:', response);
@@ -223,7 +215,6 @@ export class AddEmployeeComponent implements OnInit{
       this.businessUnitType = businessUnit;
     });
   }
-  // ..........................
 
   getStatusType() {
     this.empService.getStatusType().subscribe((status:any[]) => {

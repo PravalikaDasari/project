@@ -103,9 +103,7 @@ export class NavbarComponent {
       case 'timsheet-history':
         this.title = 'Timesheet History';
         break;
-      case 'holiday-list':
-        this.title = 'Holidays';
-        break;
+      
         // Manager
       case 'manager-profile':
           this.title = 'Profile';

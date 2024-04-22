@@ -30,7 +30,7 @@ export class DailyStatusComponent implements OnInit {
   isTimesheetApproved: boolean = true;
   weekTimeSheet: any;
   accountId: number = 0;
-  employeeId: number = 0;
+  
   timesheetService: any;
   userEmpId: any;
   year: any;

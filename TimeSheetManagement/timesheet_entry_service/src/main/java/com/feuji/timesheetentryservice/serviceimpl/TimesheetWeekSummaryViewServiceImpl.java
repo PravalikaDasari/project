@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,8 @@ import com.feuji.timesheetentryservice.dto.TimesheetApprovalSecondDto;
 import com.feuji.timesheetentryservice.entity.TimesheetWeekSummaryViewEntity;
 import com.feuji.timesheetentryservice.repository.TimesheetWeekSummaryRepo;
 import com.feuji.timesheetentryservice.service.TimesheetWeekSummaryService;
+
+import jakarta.persistence.Entity;
 @Service
 public class TimesheetWeekSummaryViewServiceImpl implements TimesheetWeekSummaryService{
 	private static Logger log = LoggerFactory.getLogger(TimesheetWeekSummaryViewServiceImpl.class);
@@ -42,16 +45,28 @@ public class TimesheetWeekSummaryViewServiceImpl implements TimesheetWeekSummary
 	 }
 	 
 	 @Override
-	 public List<TimesheetApprovalSecondDto> getAccountProjects(Integer accountId,Integer approvedBy) {
+	 public List<TimesheetApprovalSecondDto> getAccountProjects(Integer accountId, Integer approvedBy) {
 	     try {
 	         log.info("Fetching account projects for accountId: {}", accountId);
-	         List<TimesheetApprovalSecondDto> accountProjects = timesheetWeekSummaryRepo.getAccountProjects(accountId,approvedBy);
-	         return accountProjects;
+	         
+	         List<TimesheetApprovalSecondDto> accountProjects = timesheetWeekSummaryRepo.getAccountProjects(accountId, approvedBy);
+
+	         // Filter the list based on the timesheet status
+	         List<TimesheetApprovalSecondDto> filteredProjects = accountProjects.stream()
+	             .filter(dto -> {
+	                 String status = dto.getTimesheetStatus();
+	                 return "submitted".equalsIgnoreCase(status) || "approved".equalsIgnoreCase(status)
+	                         || "rejected".equalsIgnoreCase(status);
+	             })
+	             .collect(Collectors.toList());
+
+	         return filteredProjects;
 	     } catch (Exception e) {
 	         log.error("Error occurred while fetching account projects: {}", e.getMessage());
 	         return null;
 	     }
 	 }
+
 
 	 @Override
 	 public List<AccountNameDto> getAccounts(Integer approvedBy) {
@@ -76,36 +91,42 @@ public class TimesheetWeekSummaryViewServiceImpl implements TimesheetWeekSummary
 	     }    
 	}
 	 
-//	--------------------
 	 @Override
-	 public List<TimesheetApprovalSecondDto> getAllTimesheets() {
+	 public List<TimesheetApprovalSecondDto> getAllTimesheetsByApprovedBy(Integer approvedBy) {
 	     List<TimesheetApprovalSecondDto> dtos = new ArrayList<>();
-	     List<TimesheetWeekSummaryViewEntity> entities = timesheetWeekSummaryRepo.findAll();
+	     List<TimesheetWeekSummaryViewEntity> entities = timesheetWeekSummaryRepo.findByApprovedBy(approvedBy);
+	     
 	     for (TimesheetWeekSummaryViewEntity entity : entities) {
-	         TimesheetApprovalSecondDto dto = new TimesheetApprovalSecondDto();
-	         
-	         // Map entity fields to DTO fields
-	         dto.setEmployeeId(entity.getEmployeeId());
-	         dto.setWeekStartDate(entity.getWeekStartDate());
-	         dto.setWeekEndDate(entity.getWeekEndDate());
-	         dto.setPlannedStartDate(entity.getPlannedStartDate());
-	         dto.setPlannedEndDate(entity.getPlannedEndDate());
-//	         dto.setAccountName(entity.getAccountId());  // Uncommented line
-	         dto.setDesignation(entity.getDesignation());
-//	         dto.setManagerId(entity.getManagerId());  // Uncommented line
-	         dto.setEmail(entity.getEmail());
-	         dto.setEmpCode(entity.getEmployeeCode());
-	         dto.setFullName(entity.getFullName());
-	         dto.setProjectName(entity.getProjectName());
-	         dto.setBillingHours(entity.getTotalBillingHours());
-	         dto.setNonBillinghours(entity.getTotalNonBillingHours());
-	         dto.setLeaveDays(entity.getTotalLeaveHours());
-	         dto.setTimesheetStatus(entity.getTimesheetStatus());
-	         
-	         dtos.add(dto);
+	         // Check if the timesheet status is "submitted", "approved", or "rejected"
+	         String status = entity.getTimesheetStatus();
+	         if ("submitted".equalsIgnoreCase(status) || "approved".equalsIgnoreCase(status) || "rejected".equalsIgnoreCase(status)) {
+	             
+	             TimesheetApprovalSecondDto dto = new TimesheetApprovalSecondDto();
+	             
+	             dto.setEmployeeId(entity.getEmployeeId());
+	             dto.setWeekStartDate(entity.getWeekStartDate());
+	             dto.setWeekEndDate(entity.getWeekEndDate());
+	             dto.setPlannedStartDate(entity.getPlannedStartDate());
+	             dto.setPlannedEndDate(entity.getPlannedEndDate());
+	             dto.setDesignation(entity.getDesignation());
+	             dto.setEmail(entity.getEmail());
+	             dto.setEmpCode(entity.getEmployeeCode());
+	             dto.setFullName(entity.getFullName());
+	             dto.setProjectName(entity.getProjectName());
+	             dto.setBillingHours(entity.getTotalBillingHours());
+	             dto.setNonBillinghours(entity.getTotalNonBillingHours());
+	             dto.setLeaveDays(entity.getTotalLeaveHours());
+	             dto.setTimesheetStatus(status);
+	             dto.setAccountProjectId(entity.getAccountProjectId());
+	             dto.setWeekNumber(entity.getWeekNumber());
+	             
+	             dtos.add(dto);
+	         }
 	     }
+	     
 	     return dtos;
 	 }
+
 
 	 @Override
 	 public List<TimeSheeApprovalDto> getTimeSheetApproval(Integer projectManagerId, Integer year, Integer accountId) {
@@ -120,10 +141,10 @@ public class TimesheetWeekSummaryViewServiceImpl implements TimesheetWeekSummary
 	 }
 
 	 @Override
-	 public List<TimeSheeApprovalDto> getTimeSheetApprovalByEmployeeId(Integer projectManagerId, String month, Integer year,
+	 public List<TimesheetApprovalSecondDto> getTimeSheetApprovalByEmployeeId(Integer projectManagerId, String month, Integer year,
 	         Integer accountId, Integer employeeId) {
 	     try {
-	         List<TimeSheeApprovalDto> timeSheetHistory = timesheetWeekSummaryRepo.getTimeSheetApprovalByEmployeeId(projectManagerId, month, year, accountId, employeeId);
+	         List<TimesheetApprovalSecondDto> timeSheetHistory = timesheetWeekSummaryRepo.getTimeSheetApprovalByEmployeeId(projectManagerId, month, year, accountId, employeeId);
 	         log.info("timeSheetHistory: {}", timeSheetHistory);
 	         return timeSheetHistory;
 	     } catch (Exception e) {

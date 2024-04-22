@@ -371,32 +371,8 @@ export class TimesheetHomeComponent implements OnInit, AfterViewChecked {
       this.newrowTotal[rowCount] = sum;
     }
   }
-  // columnsum() {
-  //   //this.totalvalue = [0, 0, 0, 0, 0, 0, 0];
-  //   for (let columnCount = 0; columnCount < 7; columnCount++) {
-  //     let sum: number = 0;
-
-  //     for (let rowCount = 0; rowCount < this.rownum; rowCount++) {
-  // console.log( "ROWNUM" , this.rownum);
   
-  //       const inputValue = (
-  //         document.getElementById(
-  //           'input_' + rowCount + columnCount
-  //         ) as HTMLInputElement
-  //       ).value;
-  //       sum += Number(inputValue);
-  //       console.log('input_' + rowCount + columnCount ,"--->" ,Number(inputValue));
-  //       console.log(rowCount);
-        
-  //       this.rowsum(rowCount);
-  //     }
-
-  //     this.totalvalue[columnCount] += Number(sum);
-  //   }
-
-  //   return this.totalvalue;
-  // }
-
+  
   rowsum(count: number) {
     let sum: number = 0;
     for (let columnCount = 0; columnCount < 7; columnCount++) {
@@ -436,7 +412,6 @@ export class TimesheetHomeComponent implements OnInit, AfterViewChecked {
     }
     else{
       this.addDataToAllarows();
-      //alert(this.saveAndEditRecords)
       console.log(this.saveAndEditRecords);
       
       this.saveAndEditRecords.timesheetWeekDayDetailDto = this.allRows;
@@ -619,14 +594,16 @@ export class TimesheetHomeComponent implements OnInit, AfterViewChecked {
 
   deleteselected(index: number) {
   
-   if(this.fetchedDetails[0].timesheetStatusname==='Submitted') 
-    {
-      Swal.fire({
-        text: 'timesheetalready submitted You cant delete',
-        icon: 'warning',
-        confirmButtonText: 'OK',
-      });
-    }
+    if((this.fetchedDetails.length>0)&&((this.fetchedDetails[0].timesheetStatusname==='Submitted')||(this.fetchedDetails[0].timesheetStatusname==='Approved')))
+      {
+       
+        Swal.fire({
+          text: 'timesheetalready submitted you cant delete',
+          icon: 'warning',
+          confirmButtonText: 'OK',
+        });
+  
+      }
     else
     
   { 

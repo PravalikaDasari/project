@@ -27,6 +27,7 @@ import com.feuji.timesheetentryservice.dto.ProjectTaskDto;
 import com.feuji.timesheetentryservice.dto.ProjectTaskTypeNameDto;
 import com.feuji.timesheetentryservice.dto.TimeSheeApprovalDto;
 import com.feuji.timesheetentryservice.dto.TimeSheetHistoryDto;
+import com.feuji.timesheetentryservice.dto.TimesheetApprovalSecondDto;
 import com.feuji.timesheetentryservice.entity.TimesheetWeekEntity;
 import com.feuji.timesheetentryservice.repository.TimesheetWeekRepo;
 import com.feuji.timesheetentryservice.service.TimesheetWeekService;
@@ -315,21 +316,22 @@ public class TimesheetWeekController {
 	    }
 	}
 
+	
 	@GetMapping(path = "/gettimeSheetHistory/bymonth/{month}/{year}/{accountId}")
-	public ResponseEntity<List<TimeSheeApprovalDto>> timeSheetHistoryDto(@PathVariable String month,
+	public ResponseEntity<List<TimesheetApprovalSecondDto>> timeSheetHistoryDto(@PathVariable String month,
 			@PathVariable int year, @PathVariable Integer accountId) {
 		try {
 
-			List<TimeSheeApprovalDto> timeSheetHistory = timesheetWeekService.timeSheetHistoryDto(month, year,
+			List<TimesheetApprovalSecondDto> timeSheetHistory = timesheetWeekService.timeSheetHistoryDto(month, year,
 					accountId);
 
-			log.info("Fetching timeSheetHistory for {} {} accountId: {} ", month, year, accountId
+			log.info("Fetching timeSheetHistory for month: {} year: {} account id: {}", month, year, accountId
 					);
 
 			return ResponseEntity.status(HttpStatus.OK).body(timeSheetHistory);
 		} catch (Exception e) {
 
-			log.error("Error fetching time sheet history for {} {} accountName: {} employeeId: {}: {}", month, year,
+			log.error("Error Fetching timeSheetHistory for month: {} year: {} account id: {}", month, year,
 					accountId,  e.getMessage());
 
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

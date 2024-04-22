@@ -107,11 +107,11 @@ public class TimesheetWeekSummaryViewController {
 			@PathVariable Integer accountProjectId, @PathVariable Integer weekNumber) {
 		 try {
 		        Integer totalHours = timesheetWeekSummaryService.getTotalHours(employeeId, accountProjectId, weekNumber);
-		        
+		        log.info("empl id :{} accproId: {} weekno: {}",employeeId,accountProjectId,weekNumber);
 		        if (totalHours != null) {
 		            return ResponseEntity.ok(totalHours);
 		        } else {
-		        	return ResponseEntity.notFound().build();
+		        	return ResponseEntity.noContent().build();
 		        }
 		    } catch (Exception e) {
 		        log.error("Error fetching total hours for employeeId {}, accountProjectId {}, weekNumber {}: {}",
@@ -139,12 +139,12 @@ public class TimesheetWeekSummaryViewController {
 	}
 
 	@GetMapping(path = "/getTimeSheeApproval/{projectManagerId}/{month}/{year}/{accountId}/{employeeId}")
-	public ResponseEntity<List<TimeSheeApprovalDto>> getTimeSheetApprovalByEmployeeId(
+	public ResponseEntity<List<TimesheetApprovalSecondDto>> getTimeSheetApprovalByEmployeeId(
 			@PathVariable Integer projectManagerId, @PathVariable String month, @PathVariable Integer year,
 			@PathVariable Integer accountId, @PathVariable Integer employeeId) {
 
 		try {
-			List<TimeSheeApprovalDto> timeSheetHistory = timesheetWeekSummaryService
+			List<TimesheetApprovalSecondDto> timeSheetHistory = timesheetWeekSummaryService
 					.getTimeSheetApprovalByEmployeeId(projectManagerId, month, year, accountId, employeeId);
 			log.info("Fetching timeSheetHistory for year: {} accountId: {} employeeId: {} month: {}", year, accountId,employeeId,month);
 			log.info("details: {}",timeSheetHistory);
@@ -159,11 +159,11 @@ public class TimesheetWeekSummaryViewController {
 	}
 
 	@GetMapping("/all")
-	public List<TimesheetApprovalSecondDto> getAllTimesheets() {
-		log.info("Fetching all timesheets.");
-		List<TimesheetApprovalSecondDto> timesheets = timesheetWeekSummaryService.getAllTimesheets();
-		log.info("Retrieved {} timesheets.", timesheets.size());
-		return timesheets;
+	public List<TimesheetApprovalSecondDto> getAllTimesheets(@RequestParam Integer approvedBy) {
+	    log.info("Fetching timesheets for employeeId: {}", approvedBy);
+	    List<TimesheetApprovalSecondDto> timesheets = timesheetWeekSummaryService.getAllTimesheetsByApprovedBy(approvedBy);
+	    log.info("Retrieved {} timesheets.", timesheets.size());
+	    return timesheets;
 	}
 
 }

@@ -28,11 +28,14 @@ public class TimesheetApprovalSecondDto {
     private Long billingHours;
     private Long nonBillinghours;
     private Long leaveDays;
+    
+    private Integer accountProjectId;
+	private Integer weekNumber;
 
     public TimesheetApprovalSecondDto(Integer employeeId, Timestamp weekStartDate, String email, Timestamp plannedStartDate,
             Timestamp plannedEndDate, Timestamp weekEndDate, String projectName, String accountName, String empCode,
             String designation, int managerId, String timesheetStatus, String fullName, Long billingHours,
-            Long nonBillinghours, Long leaveDays) {
+            Long nonBillinghours, Long leaveDays , Integer accountProjectId, Integer weekNumber) {
         super();
         this.employeeId = employeeId;
         this.weekStartDate = weekStartDate;
@@ -50,5 +53,8 @@ public class TimesheetApprovalSecondDto {
         this.billingHours = billingHours;
         this.nonBillinghours = nonBillinghours;
         this.leaveDays = leaveDays;
+        
+        this.accountProjectId=accountProjectId;
+		this.weekNumber=weekNumber;
     }
 }
