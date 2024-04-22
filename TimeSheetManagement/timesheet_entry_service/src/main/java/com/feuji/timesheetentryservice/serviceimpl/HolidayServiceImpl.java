@@ -111,7 +111,6 @@ public class HolidayServiceImpl implements HolidayService {
 		Optional<HolidayEntity> optional = holidayRepository.findById(holidayEntity.getHolidayId());
 		if (optional.isPresent()) {
 			holidayRepository.save(holidayEntity);
-			System.out.println("update successfull");
 
 		} else {
 			throw new HolidayNotFoundException("HolidayNotFoundExceptionbyholidayId-" + holidayEntity.getHolidayId());

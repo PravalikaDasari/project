@@ -258,9 +258,6 @@ public class TimesheetDataServiceImpl implements TimeSheetDataService {
 				.setApprovedBy(getAccountIdFromProjectId(weekDayData.getAccountProjectId()).getProjectManagerId());
 		timesheetWeekEntity.setWeekNumber(currentWeekNumber - 1);
 		Date startDate = mondayDatee;
-//		startDate.setHours(0);
-//		startDate.setMinutes(0);
-//		startDate.setSeconds(0);
 		timesheetWeekEntity.setWeekStartDate(startDate);
 		Date endDate = weekDayData.getDateSun();
 		endDate.setHours(0);
@@ -348,55 +345,6 @@ public class TimesheetDataServiceImpl implements TimeSheetDataService {
 		return referenceDetailsBean;
 	}
 
-//	public AccountProjectsBean getAccountIdFromProjectId(Integer accountId) {
-//		log.info("Connecting to AccountProject server...");
-//		String url = "http://localhost:8083/api/accountProjects/getAccountProject/" + accountId;
-//
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_JSON);
-//
-//		HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-//		ResponseEntity<AccountProjectsBean> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity,
-//				AccountProjectsBean.class);
-//
-//		AccountProjectsBean accountProjectsBean = responseEntity.getBody();
-//		return accountProjectsBean;
-//
-//	}
-//	public AccountProjectsBean getAccountIdFromProjectId(Integer accountId) {
-//	    try {
-//	        log.info("Connecting to AccountProject server...");
-//	        String url = "http://localhost:8083/api/accountProjects/getAccountProject/" + accountId;
-//
-//	        HttpHeaders headers = new HttpHeaders();
-//	        headers.setContentType(MediaType.APPLICATION_JSON);
-//
-//	        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-//	        ResponseEntity<AccountProjectsBean> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity,
-//	                AccountProjectsBean.class);
-//
-//	        AccountProjectsBean accountProjectsBean = responseEntity.getBody();
-//	        return accountProjectsBean;
-//	    } catch (HttpClientErrorException e) {
-//	        log.error("HttpClientErrorException occurred while connecting to AccountProject server: {}", e.getMessage());
-//	        // Handle HttpClientErrorException, e.g., log or throw custom exception
-//	        return null;
-//	    } catch (HttpServerErrorException e) {
-//	        log.error("HttpServerErrorException occurred while connecting to AccountProject server: {}", e.getMessage());
-//	        // Handle HttpServerErrorException, e.g., log or throw custom exception
-//	        return null;
-//	    } catch (RestClientException e) {
-//	        log.error("RestClientException occurred while connecting to AccountProject server: {}", e.getMessage());
-//	        // Handle RestClientException, e.g., log or throw custom exception
-//	        return null;
-//	    } catch (Exception e) {
-//	        log.error("An unexpected error occurred while connecting to AccountProject server: {}", e.getMessage());
-//	        // Handle any other unexpected exception, e.g., log or throw custom exception
-//	        return null;
-//	    }
-//	}
-//
-
 	public AccountProjectsBean getAccountIdFromProjectId(Integer accountId) {
 		try {
 			log.info("Connecting to AccountProject server...");
@@ -436,7 +384,6 @@ public class TimesheetDataServiceImpl implements TimeSheetDataService {
 			return null;
 		} catch (Exception e) {
 			log.error("An unexpected error occurred while connecting to AccountProject server: {}", e.getMessage());
-			// Handle any other unexpected exception, e.g., log or throw custom exception
 			return null;
 		}
 	}
@@ -764,7 +711,6 @@ public class TimesheetDataServiceImpl implements TimeSheetDataService {
 		List<Object[]> list = employeeDetailsRepo.getAccountManagerDetails(accountId, employeeId);
 		List<EmployeeDataDto> empList = new ArrayList<>();
 		for (Object[] o : list) {
-			System.out.println(o.toString());
 			EmployeeDataDto emp = new EmployeeDataDto();
 			emp.setFirstName((String) o[0]);
 			emp.setLastName((String) o[1]);

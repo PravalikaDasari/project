@@ -236,10 +236,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 
 			List<EmployeeDisplayDto> empdetails = employeeRepository.getEmployeeDetails();
-			System.out.println();
 			return empdetails;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			log.info(e.getMessage());
 
 		}
 		return null;

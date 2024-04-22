@@ -24,9 +24,7 @@ public class RefreshTokenService {
 	public RefreshToken createRefreshToken(String email) {
 		Optional<UserLoginEntity> user = userLoginRepo.findByUserEmail(email);
 		Integer id = user.get().getUserId();
-		System.out.println(id+".......");
 		RefreshToken refreshToken = refreshTokenRepository.findByUserId(id);
-		System.out.println(refreshToken);
 		if (refreshToken != null) {
 			return refreshToken;
 		} else {

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../../../models/employee.service';
-import { Employee } from '../../../../models/employee.model';
-import { MatDialog } from '@angular/material/dialog';
-import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -48,12 +45,9 @@ removeTask(employeeId:number) {
       console.log("component deleted", employeeId);
       this.empService.deleteEmployee(employeeId).subscribe(res => {
         console.log(res);
-        // Handle success message or any other action after deletion
         this.getEmployeeDetails();
       });
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      // Handle cancel action
-      // No deletion occurred
     }
   });
 }

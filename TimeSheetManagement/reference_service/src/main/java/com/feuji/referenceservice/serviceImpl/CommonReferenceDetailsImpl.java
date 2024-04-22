@@ -105,7 +105,6 @@ public class CommonReferenceDetailsImpl implements CommonReferenceDetails {
 	}
 
 	public CommonReferenceDetailsEntity convertBeanToEntity(CommonReferenceDetailsBean bean) {
-		System.out.println(bean);
 		CommonReferenceTypeEntity commonReferenceTypeEntity = new CommonReferenceTypeEntity();
 		commonReferenceTypeEntity.setReferenceTypeId(bean.getReferenceTypeId().getReferenceTypeId());
 		CommonReferenceDetailsEntity entity = new CommonReferenceDetailsEntity();
